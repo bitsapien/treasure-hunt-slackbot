@@ -1,7 +1,7 @@
 require 'slack-ruby-bot'
 require 'wit'
 require 'json'
-ENV['SLACK_API_TOKEN'] = 'xoxb-318259888832-F3f8p1XTPKRrb6HAeUeLPjGP'
+ENV['SLACK_API_TOKEN'] = '<token>'
 
 SlackRubyBot.configure do |config|
   # Bot Aliases
@@ -18,7 +18,7 @@ class GoaBot < SlackRubyBot::Bot
   end
 
   match /(.*)/ do |client, data, match|
-    wit = Wit.new(access_token: 'HW6DPGANRVSEW35PZPDTZ2AYWTE5BJDU')
+    wit = Wit.new(access_token: '<token>')
     rsp = wit.message(data.text)
     weather_info = get_weather_info(rsp)
     puts "Wit response #{weather_info.join(' and ')}"
@@ -31,7 +31,7 @@ class GoaBot < SlackRubyBot::Bot
     if is_weather
       locations = is_weather.map do |l| l["value"] end
       locations.each do |loc|
-        response = Net::HTTP.get_response(URI("http://samples.openweathermap.org/data/2.5/weather?q=#{loc}&appid=b6907d289e10d714a6e88b30761fae22"))
+        response = Net::HTTP.get_response(URI("http://samples.openweathermap.org/data/2.5/weather?q=#{loc}&appid=<token>"))
         weather = JSON.parse response.body
         puts "weather data: #{weather}"
         weather_data << "#{loc} will see #{weather["weather"][0]["description"]}" 
@@ -44,8 +44,3 @@ class GoaBot < SlackRubyBot::Bot
 end
 
 GoaBot.run
-
-
-# PRAVEEN(DALLAS) - That should get the developers going, here is your code - `GITLABFQMXXJ`, and ofcourse https://tasveer.elitmus.com/assets/clues/5.gif
-# ARIJIT(RECEPTION) - That should get the developers going, here is your code - `GITLABGBAWBM`, and ofcourse https://tasveer.elitmus.com/assets/clues/5.gif
-# SANDEEP(FACES) -  That should get the developers going, here is your code - `GITLABEHAEQH`, and ofcourse https://tasveer.elitmus.com/assets/clues/5.gif
